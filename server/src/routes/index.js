@@ -8,5 +8,6 @@ module.exports = routes => {
             ctx.body = { message: 'hi! 欢迎查看API ' }
         })
         .get('/getMenu', header.getMenu)
+        .get('/addUser', header.addUser)
 
 }

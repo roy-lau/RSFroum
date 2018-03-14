@@ -1,6 +1,7 @@
-const Koa = require('koa');
-const router = require('koa-router')()
-const app = new Koa();
+const Koa = require('koa'),
+    router = require('koa-router')(),
+    bodyparser = require('koa-bodyparser'),
+    app = new Koa();
 require('./cors')(app) // 配置跨域支持
 require('./routes')(router);
 
@@ -19,8 +20,15 @@ app
         const start = Date.now();
         await next();
         const ms = Date.now() - start;
-        console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+        console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
     })
+    // middlewares
+    .use(bodyparser({
+        enableTypes: ['json', 'form', 'text'],
+        onerror: (err, ctx) => {
+            ctx.throw('数据解析出错：', 422);
+        }
+    }))
     // 接口 router
     .use(router.routes())
     .use(router.allowedMethods())

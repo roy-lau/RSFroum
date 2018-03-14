@@ -1,6 +1,8 @@
 <template>
     <div id="head-menu">
-        <h1> 头部 </h1>
+        <ul>
+            <li v-for="(list,index) in menuList" :key="index" v-text="list.name"></li>
+        </ul>
     </div>
 </template>
 <script>
@@ -8,13 +10,13 @@ export default {
     name: 'head-menu',
     data() {
         return {
-
+            menuList: []
         };
     },
     methods: {
         getMenu() {
             this.$axios.get('getMenu').then(res => {
-                console.log(res)
+                this.menuList = res.data;
             })
         }
     },

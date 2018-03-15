@@ -1,13 +1,15 @@
-
+const mysql_query = require('../db/mysql');
 module.exports = {
-    addUser: (ctx, next) => {
+    addUser: async (ctx, next) => {
         // http://localhost:3000/addUser?user=admin
         try {
-            console.log('start');
-            console.log(ctx.request.body) // 获取前端传来的数据
+            console.log('addUser start');
+            console.log(`[request data] - ${ctx.request.body}`) // 获取前端传来的数据
+
+            const addSql = 'INSERT INTO user(user, pwd, email, phone, addr, ip, mac_addr, create_datetime) VALUES(?,?,?,?,?,?,?,?)';
             const ip = ctx.request.ip.match(/\d+.\d+.\d+.\d+/)[0] && '127.0.0.1';
-            console.log('ip adder: ' + ip)
-            const addObj = {
+            // console.log('ip adder: ' + ip)
+            const addSqlParams = {
                 user: "admin",
                 pwd: "admin123",
                 email: "188888888@163.com",
@@ -17,10 +19,18 @@ module.exports = {
                 mac_addr: "mac_undefiend",
                 create_datetime: new Date()
             }
-            ctx.body = {
-                errNo: 0,
-                message: '添加用户成功！ '
-            };
+            await mysql_query(addSql, Object.values(addSqlParams)).then(res => {
+                ctx.body = {
+                    errNo: 0,
+                    message: '添加用户成功！ '
+                };
+            }).catch(err => {
+                console.log("有错误吗？")
+                ctx.body = {
+                    errNo: 1,
+                    message: '添加用户失败！ '
+                };
+            })
         } catch (err) {
             console.log(`[addUser error] - ${err}`); // 这里捕捉到错误 `error`
         }

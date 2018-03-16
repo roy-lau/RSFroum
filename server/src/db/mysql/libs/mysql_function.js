@@ -1,11 +1,22 @@
-var query = require("./pool");
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+   host: '139.199.99.154',
+    user: 'root',
+    password: 'toor',
+    port: '3306',
+    database: 'RSFroum_test',
+    charset: 'utf8',
+});
+
+connection.connect();
+
 
 module.exports = {
     /*
      测试是否链接成功
      */
     mysql_test() {
-        query('SELECT 1 + 1 AS solution', function(error, results, fields) {
+        connection.query('SELECT 1 + 1 AS solution', function(error, results, fields) {
             if (error) throw error;
             console.log(`The solution is: ${results[0].solution} ,测试连接成功！`);
         });
@@ -16,7 +27,7 @@ module.exports = {
       @return {Object} 查询数据
     */
     mysql_add(addSql, addSqlParams) {
-        query(addSql, addSqlParams, (err, result) => {
+        connection.query(addSql, addSqlParams, (err, result) => {
             if (err) {
                 console.log('[mysql插入 失败] - ', err.message);
             }
@@ -41,8 +52,8 @@ module.exports = {
       @param {String} 表格名
       @return {Object} 查询数据
     */
-    mysql_query() {
-        query(`SELECT * FROM user`, function(err, result) {
+    mysql_connection.query() {
+        connection.query(`SELECT * FROM user`, function(err, result) {
             if (err) {
                 console.log('[mysql查询 失败] - ', err.message);
                 return false;
@@ -62,7 +73,7 @@ module.exports = {
     mysql_update() {
         const modSql = 'UPDATE bbs_user SET name = ?,url = ? WHERE Id = ?';
         const modSqlParams = ['菜鸟移动站', 'https://m.runoob.com', 6];
-        query(modSql, modSqlParams, function(err, result) {
+        connection.query(modSql, modSqlParams, function(err, result) {
             if (err) {
                 console.log('[mysql更新 失败] - ', err.message);
                 return false;
@@ -78,7 +89,7 @@ module.exports = {
       @param {Number} 表格行
     */
     mysql_del() {
-        query(`DELETE FROM user where id=2`, function(err, result) {
+        connection.query(`DELETE FROM user where id=2`, function(err, result) {
             if (err) {
                 console.log('[mysql删除 失败] - ', err.message);
                 return false;
@@ -89,3 +100,4 @@ module.exports = {
         });
     },
 }
+connection.end()

@@ -1,38 +1,38 @@
 const mysql_query = require('../db/mysql');
 module.exports = {
-    addUser: async (ctx, next) => {
+    addUser: async(ctx, next) => {
         // http://localhost:3000/addUser?user=admin
         try {
-            console.log('addUser start');
-            console.log(`[request data] - ${ctx.request.body}`) // 获取前端传来的数据
+            console.log('================ addUser start =================');
+            // console.log(`[request data] - ${ctx.request.body}`) // 获取前端传来的数据
+            let addUserData = ctx.request.body;
 
-            const addSql = 'INSERT INTO user(user, pwd, email, phone, addr, ip, mac_addr, create_datetime) VALUES(?,?,?,?,?,?,?,?)';
-            const ip = ctx.request.ip.match(/\d+.\d+.\d+.\d+/)[0] && '127.0.0.1';
-            // console.log('ip adder: ' + ip)
-            const addSqlParams = {
-                user: "admin",
-                pwd: "admin123",
-                email: "188888888@163.com",
-                phone: 188888888,
-                addr: "CN",
-                ip,
-                mac_addr: "mac_undefiend",
-                create_datetime: new Date()
-            }
-            await mysql_query(addSql, Object.values(addSqlParams)).then(res => {
-                ctx.body = {
-                    errNo: 0,
-                    message: '添加用户成功！ '
-                };
-            }).catch(err => {
-                console.log("有错误吗？")
-                ctx.body = {
-                    errNo: 1,
-                    message: '添加用户失败！ '
-                };
+
+            await mysql_query(`SELECT user FROM user`).then(async res => {
+                for (let item of res) {
+                    if (item.user === addUserData.user) {
+                        ctx.body = { errNo: 0, message: "该账户已存在！" }
+                        return;
+                    }
+                }
+                const addSql = 'INSERT INTO user(user, pwd, email, phone, addr, ip, mac_addr, create_datetime) VALUES(?,?,?,?,?,?,?,?)',
+                    addSqlParams = Object.assign({}, addUserData, {
+                        addr: "CN",
+                        ip: ctx.request.ip,
+                        mac_addr: "mac_undefiend",
+                        create_datetime: new Date()
+                    })
+                await mysql_query(addSql, Object.values(addSqlParams)).then(res => {
+                    console.log('====== success =====')
+                    ctx.body = { errNo: 0, message: '添加用户成功！ ' };
+                }).catch(err => {
+                    ctx.body = { errNo: 1, message: '添加用户失败！ ' };
+                })
             })
+
+
         } catch (err) {
-            console.log(`[addUser error] - ${err}`); // 这里捕捉到错误 `error`
+            console.log(`[catch addUser error] - ${err}`); // 这里捕捉到错误 `error`
         }
 
     },
@@ -64,4 +64,15 @@ module.exports = {
             }]
         }
     }
+}
+// 校验用户是否存在
+const verifyUserIsRepeat = (params) => {
+    return new Promise((resolve, reject) => {
+        mysql_query('SELECT user FROM user').then(res => {
+            console.log(res)
+            console.log(res.user)
+            console.log(res.RowDataPacket)
+            // resolve(res === params.user)
+        }).catch(error => {})
+    })
 }

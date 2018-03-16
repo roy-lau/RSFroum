@@ -9,7 +9,7 @@ import router from './router'
 // import 'element-ui/lib/theme-chalk/index.css'
 import axios from '@/config/api' // 接口处理
 import '@/config/permission' // 权限&&进度条
-import '@/config/errorHandler' // 日志记录
+// import '@/config/errorHandler' // 日志记录
 
 // Vue.use(ElementUI);
 Vue.prototype.$axios = axios

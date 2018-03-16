@@ -1,6 +1,7 @@
-const mysql = require("mysql"),
+var mysql = require("mysql"),
     moment = require('moment')().format('YYYY-MM-DD HH:mm:ss');
-const pool = mysql.createPool({
+
+var pool = mysql.createPool({
     host: '139.199.99.154',
     user: 'root',
     password: 'toor',
@@ -32,7 +33,7 @@ let num = 1,
                     reject(err)
                     console.log(`\n[mysql插入 失败] -  ${err.message} \n\n`);
                 } else {
-                    console.log(`[mysql_query execute == ${num++}] - ${moment}`);
+                    console.log(`[mysql_query execute : ${num++}] - ${moment}`);
                     // console.log('mysql_query ID:\n', result);
                     resolve(result)
                 }

@@ -1,6 +1,6 @@
 <template>
   <div id="layout">
-
+        <h2>layout</h2>
   </div>
 </template>
 <script>

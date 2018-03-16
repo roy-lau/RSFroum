@@ -1,16 +1,16 @@
 <template>
     <div id="app">
-        <head-menu />
+        <Header/>
         <router-view/>
     </div>
 </template>
 <script>
 import '@/config/api.js'
-const headMenu = () => import ('@/base/head-menu')
+const Header = () => import ('@/components/header')
 export default {
     name: 'app',
     components: {
-        headMenu
+        Header
     },
 }
 </script>

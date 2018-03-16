@@ -7,29 +7,30 @@ module.exports = {
             // console.log(`[request data] - ${ctx.request.body}`) // 获取前端传来的数据
             let addUserData = ctx.request.body;
 
-
-            await mysql_query(`SELECT user FROM user`).then(async res => {
-                for (let item of res) {
-                    if (item.user === addUserData.user) {
-                        ctx.body = { errNo: 0, message: "该账户已存在！" }
-                        return;
-                    }
-                }
-                const addSql = 'INSERT INTO user(user, pwd, email, phone, addr, ip, mac_addr, create_datetime) VALUES(?,?,?,?,?,?,?,?)',
-                    addSqlParams = Object.assign({}, addUserData, {
-                        addr: "CN",
-                        ip: ctx.request.ip,
-                        mac_addr: "mac_undefiend",
-                        create_datetime: new Date()
-                    })
-                await mysql_query(addSql, Object.values(addSqlParams)).then(res => {
-                    console.log('====== success =====')
-                    ctx.body = { errNo: 0, message: '添加用户成功！ ' };
-                }).catch(err => {
-                    ctx.body = { errNo: 1, message: '添加用户失败！ ' };
+            // let userList = await mysql_query(`SELECT user FROM user`)
+            // for (let item of userList) {
+            //     console.log(item)
+            //     if (item.user === addUserData.user) {
+            //         ctx.body = { errNo: 0, message: "该账户已存在！" }
+            //         // return;
+            //     }
+            // }
+            const addSql = 'INSERT INTO user(user, pwd, email, phone, addr, ip, mac_addr, create_datetime) VALUES(?,?,?,?,?,?,?,?)',
+                addSqlParams = Object.assign({}, addUserData, {
+                    addr: "CN",
+                    ip: ctx.request.ip,
+                    mac_addr: "mac_undefiend",
+                    create_datetime: new Date()
                 })
-            })
-
+            let info = await mysql_query(addSql, Object.values(addSqlParams))
+            ctx.body = { errNo: 0, message: '添加用户成功！ ' };
+            console.log(info)
+            // .then(res => {
+            //     console.log('====== success =====')
+            //     ctx.body = { errNo: 0, message: '添加用户成功！ ' };
+            // }).catch(err => {
+            //     ctx.body = { errNo: 1, message: '添加用户失败！ ' };
+            // })
 
         } catch (err) {
             console.log(`[catch addUser error] - ${err}`); // 这里捕捉到错误 `error`

@@ -13,7 +13,7 @@
             database: 'RSFroum_test',
             charset: 'utf8',
         });
-        const [rows, fields] = await connection.execute(sql)
+        const [rows, fields] = await connection.query(sql)
         return rows;
     }
 

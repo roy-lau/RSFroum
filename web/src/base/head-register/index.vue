@@ -13,10 +13,10 @@ export default {
     methods: {
         adduser() {
             this.$axios.post('addUser', {
-                user: 'admin',
+                user: 'admin1',
                 pwd: 'aaaa324',
                 email: '321@163.com',
-                phone: '166'
+                phone: 166689789
             }).then( res => {
                 console.log(res)
             })

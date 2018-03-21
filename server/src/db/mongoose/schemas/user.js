@@ -20,17 +20,18 @@ var UserSchema = new mongoose.Schema({
     },
     phone: {
         type: Number,
-        min: 6,
-        max: 12
+        minlength: 6,
+        maxlength: 12
     },
     age: {
         type: Number,
         min: 18, //年龄最小18
         max: 120, //年龄最大120
     },
+    headImg: String,
     addr: String,
     ip: String,
-    mac_addr: String,
+    macAddr: String,
     createAt: {
         type: Date,
         default: Date.now()

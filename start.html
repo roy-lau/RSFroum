@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>start 启动 devOps</title>
+</head>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+
+<body>
+    <h3>启动页</h3>
+</body>
+<script>
+	window.onload=function(){
+		$.ajax({
+			method: "get",
+			url:"http://localhost:3000/start",
+			success: function(error,data){
+				console.log(error,data)
+			},
+			error: function(error,data){
+				console.log(error,data)
+			},
+		})
+	}
+</script>
+</html>

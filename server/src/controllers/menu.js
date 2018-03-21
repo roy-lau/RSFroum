@@ -44,9 +44,8 @@ module.exports = {
         try {
             console.log('================ findMenu start =================');
             let findMenuData = ctx.request.body,
-                start = findMenuData.start || 1, // 从第几条开始
-                pageSize = (findMenuData.pageSize || 10) + 1, // 每页显示条数
                 menuData = await Menu.find(findMenuData);
+                console.log(findMenuData)
             ctx.body = {
                 errNo: 0,
                 message: '查找菜单成功！ ',

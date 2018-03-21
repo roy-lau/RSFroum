@@ -1,11 +1,29 @@
 #   API
 
 ### 目录
+* [规约](#Protocol)
 * 用户(User)
-	- [1、新增(add)](#addUser)
-	- [2、删除(del)](#delUser)
-	- [3、修改(update)](#updateUser)
-	- [4、查询(find)](#findUser)
+	- [1、新增(addUser)](#addUser)
+	- [2、删除(delUser)](#delUser)
+	- [3、修改(updateUser)](#updateUser)
+	- [4、查询(findUser)](#findUser)
+* 用户(User)
+	- [1、查询(findMenu)](#findMenu)
+
+
+### <a name="Protocol" /> 规约：
+
+* BASE_URL: `139.199.99.154:3000`
+
+* 返回参数
+
+| 字段 		| 类型 		| 字段说明 		| 备注		 |
+|-----------|-----------|---------------|------------|
+|errNo		|Number		|`0`:成功, `1`失败|
+|massage	|String		|提示信息		|
+|data		|Object		|返回数据		|
+
+
 
 ### 用户(User)
 
@@ -26,7 +44,8 @@
 |age		|Number		|年龄			|			|
 |addr		|String		|地址			|			|
 |ip			|String		|ip				|			|
-|mac_addr	|String		|mac地址		|			|
+|headImg	|String		|头像路径		|			|
+|macAddr	|String		|mac地址		|			|
 
 > 返回数据
 
@@ -62,7 +81,8 @@
 |age		|Number		|年龄			|			|
 |addr		|String		|地址			|			|
 |ip			|String		|ip				|			|
-|mac_addr	|String		|mac地址		|			|
+|headImg	|String		|头像路径		|			|
+|macAddr	|String		|mac地址		|			|
 
 ####  <a name="updateUser" /> 3、修改(update)
 
@@ -83,7 +103,8 @@
 |age		|Number		|年龄			|			|
 |addr		|String		|地址			|			|
 |ip			|String		|ip				|			|
-|mac_addr	|String		|mac地址		|			|
+|headImg	|String		|头像路径		|			|
+|macAddr	|String		|mac地址		|			|
 
 
 
@@ -113,7 +134,8 @@
 |age		|Number		|年龄			|			|
 |addr		|String		|地址			|			|
 |ip			|String		|ip				|			|
-|mac_addr	|String		|mac地址		|			|
+|headImg	|String		|头像路径		|			|
+|macAddr	|String		|mac地址		|			|
 |pageCurrent|String		|当前页数		|			|默认 1
 |pageSize	|String		|总页数			|			|默认 10
 
@@ -124,3 +146,22 @@
 |_id		|String		|				|
 |……			|……			|				|
 
+### 菜单(Menu)
+
+####  <a name="findMenu" /> 1、查询(find)
+
+- __接口地址： findMenu__
+
+- __请求方式： get__
+
+
+> 请求数据
+
+无
+
+> 返回数据
+
+| 字段 		| 类型 		| 字段说明 		| 备注		 |
+|-----------|-----------|---------------|------------|
+|_id		|String		|				|
+|menuList	|Array		|菜单列表		|

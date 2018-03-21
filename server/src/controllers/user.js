@@ -6,6 +6,17 @@ module.exports = {
             console.log('================ addUser start =================');
             let addUserData = ctx.request.body;
             let user = new User(addUserData)
+           /* {
+                name:'admin',
+                pwd:'admin123',
+                email:'admin123@163.com',
+                ip:'139.199.99.154',
+                phone:18888888,
+                age:18,
+                addr:'cn',
+                headImg:'/imgs/av.png',
+                macAddr:'3194u10tu0u140501tu0ue0',
+            }*/
             let userData = await user.save()
             ctx.body = {
                 errNo: 0,
@@ -21,7 +32,7 @@ module.exports = {
         try {
             console.log('================ delUser start =================');
             let delUserData = ctx.request.body;
-            let userData = await User.remove(findUserData)
+            let userData = await User.remove(userData)
             ctx.body = {
                 errNo: 0,
                 message: '删除用户成功！ ',
@@ -51,7 +62,7 @@ module.exports = {
         try {
             console.log('================ findUser start =================');
             let findUserData = ctx.request.body,
-                start = findUserData.pageCurrent || 1, // 从第几条开始
+                start = findUserData.pageCurrent || 0, // 从第几条开始
                 pageSize = (findUserData.pageSize || 10) + 1, // 每页显示条数
 
                 userData = await User.findByPages(findUserData, start, pageSize);

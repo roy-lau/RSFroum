@@ -4,7 +4,7 @@ const Koa = require('koa'),
     moment = require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     app = new Koa();
 require('./cors')(app) // 配置跨域支持
-require('./routes')(router);
+require('./routes')(router); //把router 扔到routes文件里
 
 app
     // logger

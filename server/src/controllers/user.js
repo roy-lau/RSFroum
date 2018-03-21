@@ -51,7 +51,7 @@ module.exports = {
         try {
             console.log('================ findUser start =================');
             let findUserData = ctx.request.body,
-                start = findUserData.start || 1, // 从第几条开始
+                start = findUserData.pageCurrent || 1, // 从第几条开始
                 pageSize = (findUserData.pageSize || 10) + 1, // 每页显示条数
 
                 userData = await User.findByPages(findUserData, start, pageSize);

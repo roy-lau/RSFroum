@@ -1,29 +1,29 @@
 // 模式
 var mongoose = require('mongoose')
 var UserSchema = new mongoose.Schema({
-    name: {
+    name: { // 用户名
         type: String,
         minlength: 3,
         maxlength: 18,
     },
-    pwd: {
+    pwd: {  // 密码
         type: String,
         minlength: 3,
         maxlength: 18,
         required: true
     },
-    email: {
+    email: {    // 邮箱
         type: String,
         minlength: 3,
         maxlength: 36,
         required: true
     },
-    phone: {
+    phone: {    // 手机号
         type: Number,
         minlength: 6,
         maxlength: 12
     },
-    age: {
+    age: {  // 年龄
         type: Number,
         min: 18, //年龄最小18
         max: 120, //年龄最大120
@@ -32,11 +32,11 @@ var UserSchema = new mongoose.Schema({
     addr: String,
     ip: String,
     macAddr: String,
-    createAt: {
+    createAt: {     // 用户创建时间
         type: Date,
         default: Date.now()
     },
-    updateAt: {
+    updateAt: {     // 用户更新时间
         type: Date,
         default: Date.now()
     }

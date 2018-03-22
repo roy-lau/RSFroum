@@ -5,6 +5,7 @@ Vue.use(Router)
 
 
 const hot = () => import ('@/components/hot')
+const post = () => import ('@/components/post')
 
 
 // const test = () =>
@@ -19,6 +20,10 @@ export default new Router({
       path: '/hot',
       name: '最火',
       component: hot
+    },{
+      path: '/post',
+      name: '发帖',
+      component: post
     }
     // {
     //   path: '/test',

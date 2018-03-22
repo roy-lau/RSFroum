@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var MenuSchema = new mongoose.Schema({
     menuList: {
         type: Array,
-    }
+    },
 })
 
 MenuSchema.statics = {

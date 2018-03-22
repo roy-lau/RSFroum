@@ -1,7 +1,8 @@
 <!-- 注册 -->
 <template>
     <div id="head-register">
-        <button @click="adduser">add user test</button>
+        <button @click="adduser" style="float:right">注册</button>
+        <button @click="adduser" style="float:right">登陆</button>
     </div>
 </template>
 <script>

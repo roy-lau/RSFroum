@@ -9,28 +9,28 @@
     }).catch(error => {
         console.log(`[Axios catch error info] -  ${error}`)
     })
-    let menuList = [{
-        name: '最热',
-        path: 'hot'
-    }, {
-        name: '最新',
-        path: 'new'
-    }, {
-        name: '视频',
-        path: 'video'
-    }, {
-        name: '音乐',
-        path: 'music'
-    }, {
-        name: '软件',
-        path: 'software'
-    }, {
-        name: '原创',
-        path: 'original'
-    }, {
-        name: '电子书',
-        path: 'EBook'
-    }]
+        let menuList = [{
+            name: '最热',
+            path: 'hot'
+        }, {
+            name: '最新',
+            path: 'new'
+        }, {
+            name: '视频',
+            path: 'video'
+        }, {
+            name: '音乐',
+            path: 'music'
+        }, {
+            name: '软件',
+            path: 'software'
+        }, {
+            name: '原创',
+            path: 'original'
+        }, {
+            name: '电子书',
+            path: 'EBook'
+        }]
     /*
         新增菜单
     */

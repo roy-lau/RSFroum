@@ -35,9 +35,8 @@ module.exports = {
     delPost: async(ctx, next) => {
         try {
             console.log('================ addPost start =================');
-            let addPostData = ctx.request.body;
-            let PostData = await Post.remove(addPostData)
-            console.log(addPostData)
+            let delPostData = ctx.request.body;
+            let PostData = await Post.remove(delPostData)
             ctx.body = {
                 errNo: 0,
                 message: '删除成功！ ',
@@ -51,9 +50,9 @@ module.exports = {
     updatePost: async(ctx, next) => {
         try {
             console.log('================ addPost start =================');
-            let addPostData = ctx.request.body;
-            let PostData = await Post.update(addPostData)
-            console.log(addPostData)
+            let updatePostData = ctx.request.body;
+            let PostData = await Post.updateOne(updatePostData.id, updatePostData.data, { runValidators: true })
+            console.log(updatePostData)
             ctx.body = {
                 errNo: 0,
                 message: '修改成功！ ',
@@ -68,7 +67,10 @@ module.exports = {
         try {
             console.log('================ findPost start =================');
             let findPostData = ctx.request.body,
-                PostData = await Post.fetch(findPostData),
+                start = findPostData.pageCurrent || 0, // 从第几条开始
+                pageSize = (findPostData.pageSize || 10) + 1, // 每页显示条数
+
+                PostData = await Post.findByPages(findPostData, start, pageSize),
                 i = 0;
             for (let item of PostData) {
                 PostData[i].text = md.render(item.text)

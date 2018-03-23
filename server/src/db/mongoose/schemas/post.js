@@ -1,5 +1,5 @@
 /*
-	发帖
+    发帖
 */
 
 var mongoose = require('mongoose')
@@ -17,36 +17,21 @@ var PostSchema = new mongoose.Schema({
         required: true
     },
     type: { // 类型（通过菜单获取）
-    	type: String,
+        type: String,
     },
-    praise: {// 点赞数
-    	type: Number,
-    	default: 0
+    praise: { // 点赞数
+        type: Number,
+        default: 0
     },
-    tread:{// 点踩数
-    	type: Number,
-    	default: 0
+    tread: { // 点踩数
+        type: Number,
+        default: 0
     },
     name: { // 用户名
         type: String,
         minlength: 3,
         maxlength: 18,
     },
-    // email: { // 邮箱
-    //     type: String,
-    //     minlength: 3,
-    //     maxlength: 36,
-    //     required: true
-    // },
-    // phone: { //手机号
-    //     type: Number,
-    //     minlength: 6,
-    //     maxlength: 12
-    // },
-    // headImg: String, // 用户头像地址
-    // addr: String,
-    // ip: String,
-    // macAddr: String,
     createAt: { // 发帖时间
         type: Date,
         default: Date.now()
@@ -69,11 +54,23 @@ PostSchema.pre('save', function(next) {
     next()
 })
 PostSchema.statics = {
-    fetch: function(params,cb) {
+    // findByPages: 分页
+    findByPages: function(options, start, pageSize, cb) {
         return this
-            .find(params)
+            .find(options)
+            .skip(start)
+            .limit(pageSize)
             .sort('meta.updateAt')
             .exec(cb)
+        // 注意：start = (页数-1)*pageSize
     },
+    // updateOne: 修改一条数据
+    updateOne: function(id, data, cb) {
+        if (id === undefined && id === null && id === '') throw new Error(`ID can't be empty`)
+        if (data === undefined && data === null && data === '') throw new Error(`data can't be empty`)
+        return this
+            .findOneAndUpdate({ _id: id }, data)
+            .exec(cb)
+    }
 }
 module.exports = PostSchema

@@ -6,17 +6,6 @@ module.exports = {
             console.log('================ addUser start =================');
             let addUserData = ctx.request.body;
             let user = new User(addUserData)
-           /* {
-                name:'admin',
-                pwd:'admin123',
-                email:'admin123@163.com',
-                ip:'139.199.99.154',
-                phone:18888888,
-                age:18,
-                addr:'cn',
-                headImg:'/imgs/av.png',
-                macAddr:'3194u10tu0u140501tu0ue0',
-            }*/
             let userData = await user.save()
             ctx.body = {
                 errNo: 0,
@@ -32,7 +21,7 @@ module.exports = {
         try {
             console.log('================ delUser start =================');
             let delUserData = ctx.request.body;
-            let userData = await User.remove(userData)
+            let userData = await User.remove(delUserData)
             ctx.body = {
                 errNo: 0,
                 message: '删除用户成功！ ',
@@ -47,14 +36,29 @@ module.exports = {
         try {
             console.log('================ updateUser start =================');
             let updateUserData = ctx.request.body;
-            let userData = await User.update(updateUserData)
+            await User.updateOne(updateUserData.id, updateUserData.data, { runValidators: true })
             ctx.body = {
                 errNo: 0,
                 message: '修改用户成功！ ',
-                data: userData
+                data: await User.findOne({ _id: updateUserData.id })
             }
         } catch (err) {
             console.log(`[catch updateUser error] - ${err}`); // 这里捕捉到错误 `error`
+            ctx.body = { errNo: 1, message: err }
+        }
+    },
+    findOneUser: async(ctx, next) => {
+        try {
+            console.log('================ findOneUser start =================');
+            let findOneUserData = ctx.request.body,
+                userData = await User.findOne(findOneUserData);
+            ctx.body = {
+                errNo: 0,
+                message: '查找用户成功！ ',
+                data: userData
+            }
+        } catch (err) {
+            console.log(`[catch findOneUser error] - ${err}`); // 这里捕捉到错误 `error`
             ctx.body = { errNo: 1, message: err }
         }
     },

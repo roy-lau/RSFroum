@@ -6,24 +6,24 @@ var UserSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 18,
     },
-    pwd: {  // 密码
+    pwd: { // 密码
         type: String,
         minlength: 3,
         maxlength: 18,
         required: true
     },
-    email: {    // 邮箱
+    email: { // 邮箱
         type: String,
         minlength: 3,
         maxlength: 36,
         required: true
     },
-    phone: {    // 手机号
+    phone: { // 手机号
         type: Number,
         minlength: 6,
         maxlength: 12
     },
-    age: {  // 年龄
+    age: { // 年龄
         type: Number,
         min: 18, //年龄最小18
         max: 120, //年龄最大120
@@ -32,11 +32,11 @@ var UserSchema = new mongoose.Schema({
     addr: String,
     ip: String,
     macAddr: String,
-    createAt: {     // 用户创建时间
+    createAt: { // 用户创建时间
         type: Date,
         default: Date.now()
     },
-    updateAt: {     // 用户更新时间
+    updateAt: { // 用户更新时间
         type: Date,
         default: Date.now()
     }
@@ -67,10 +67,12 @@ UserSchema.statics = {
             .sort('meta.updateAt')
             .exec(cb)
     },
-    // findById: 查找一条数据
-    findById: function(id, cb) {
+    // updateOne: 修改一条数据
+    updateOne: function(id, data, cb) {
+        if (id === undefined && id === null && id === '') throw new Error(`ID can't be empty`)
+        if (data === undefined && data === null && data === '') throw new Error(`data can't be empty`)
         return this
-            .findOne({ _id: id })
+            .findOneAndUpdate({ _id: id }, data)
             .exec(cb)
     },
     // findByPages: 分页

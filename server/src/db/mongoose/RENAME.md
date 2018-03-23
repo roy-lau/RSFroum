@@ -97,3 +97,20 @@ methods和statics的区别
 
 - 区别就是一个给Model添加方法`（statics）`，
 - 一个给实例添加方法`（methods）`。
+
+修改：
+
+	Model.update(conditions, doc, [options], [callback]) // 语法
+
+* `conditions：` 查询条件；
+* `doc：` 需要修改的数据，不能修改主键（_id）；
+* `options：` 控制选项；
+* `callback：` 回调函数，返回的是受影响的行数。
+* options有以下选项：
+　　* `safe (boolean)` 默认为true。安全模式。
+　　* `upsert (boolean)` 默认为false。如果不存在则创建新记录。
+　　* `multi (boolean)` 默认为false。是否更新多个查询记录。
+　　* `runValidators` 如果值为true，执行Validation验证。
+　　* `setDefaultsOnInsert` 如果upsert选项为true，在新建时插入文档定义的默认值。
+　　* `strict (boolean)` 以strict模式进行更新。
+　　* `overwrite (boolean)` 默认为false。禁用update-only模式，允许覆盖记录。

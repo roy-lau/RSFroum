@@ -24,6 +24,7 @@ export default {
         postMEvalue() {
              let publishData ={
                 title: '大标题',
+                type: '原创',
                 text: this.MEvalue
             }
             this.$axios.post('addPost',publishData).then(res => {

@@ -1,20 +1,17 @@
 const { Post } = require("../db/mongoose/models")
 const hljs = require('highlight.js')
-const md = require('markdown-it')({
+const md = require('markdown-it')({ // markdown 文档配置
     html: true,
     linkify: true,
     typographer: true,
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre class="hljs"><code>' +
-               hljs.highlight(lang, str, true).value +
-               '</code></pre>';
-      } catch (__) {}
+    highlight: function(str, lang) { // markdown 文档的code
+        if (lang && hljs.getLanguage(lang)) {
+            try {
+                return `<pre class="hljs"><code>${hljs.highlight(lang, str, true).value}</code></pre>`;
+            } catch (__) {}
+        }
+        return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`;
     }
-
-    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-  }
 });
 
 module.exports = {
@@ -77,7 +74,7 @@ module.exports = {
                 PostData[i].text = md.render(item.text)
                 i++
             }
-
+           // await Promise.all(PostData.map(async(item) => { item.text = md.render(item.text) }));
             ctx.body = {
                 errNo: 0,
                 message: '查找文章成功！ ',

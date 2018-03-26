@@ -6,7 +6,7 @@
     */
     const addUser = () => {
         ajax.post(base_url + '/addUser', {
-            name: 'admin',
+            userName: 'admin',
             pwd: 'admin123',
             email: 'admin123@163.com',
             ip: '139.199.99.154',
@@ -37,8 +37,12 @@
     /*
     查找用户
     */
-    const findUser = () => {
-        ajax.get(base_url + '/findUser').then(res => {
+    const findUser = (token) => {
+        ajax.get(base_url + '/findUser',{
+            headers: {
+                authorization: 'Bearer '+token
+            }
+        }).then(res => {
             console.log(res.data)
         }).catch(error => {
             console.log(`[Axios catch error info] -  ${error}`)
@@ -66,6 +70,28 @@
             console.log(`[Axios catch error info] -  ${error}`)
         })
     }
+    /*
+        登陆
+    */
+    const login = () => {
+        ajax.post(base_url + '/login', {
+            userName: 'admin',
+            pwd: 'admin123',
+            email: 'admin123@163.com',
+            ip: '139.199.99.154',
+            phone: 18888888,
+            age: 18,
+            addr: 'cn',
+            headImg: '/imgs/av.png',
+            macAddr: '3194u10tu0u140501tu0ue0',
+        }).then(res => {
+            console.log(res.data)
+    findUser(res.data.token)
 
-    findUser()
+        }).catch(error => {
+            console.log(`[Axios catch error info] -  ${error}`)
+        })
+
+    }
+    login()
     // delUser()

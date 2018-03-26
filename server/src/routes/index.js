@@ -18,6 +18,7 @@ module.exports = routes => {
         .post('/updateUser', User.updateUser)
         .get('/findOneUser', User.findOneUser)
         .get('/findUser', User.findUser)
+        .post('/login', User.login)
 
         // 菜单{ 增 }
         .post('/addMenu', Menu.addMenu)

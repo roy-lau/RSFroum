@@ -16,12 +16,11 @@ const md = require('markdown-it')({ // markdown 文档配置
 
 module.exports = {
     addPost: async(ctx, next) => {
+        console.log('================ addPost start =================');
+        const { body } = ctx.request
         try {
-            console.log('================ addPost start =================');
-            let addPostData = ctx.request.body;
-            let post = new Post(addPostData)
-            console.log(addPostData)
-            let PostData = await post.save()
+            const post = new Post(body),
+                PostData = await post.save();
             ctx.body = {
                 errNo: 0,
                 message: '发布成功！ ',
@@ -33,10 +32,10 @@ module.exports = {
         }
     },
     delPost: async(ctx, next) => {
+        console.log('================ addPost start =================');
+        const { body } = ctx.request
         try {
-            console.log('================ addPost start =================');
-            let delPostData = ctx.request.body;
-            let PostData = await Post.remove(delPostData)
+            const PostData = await Post.remove(body);
             ctx.body = {
                 errNo: 0,
                 message: '删除成功！ ',
@@ -48,11 +47,11 @@ module.exports = {
         }
     },
     updatePost: async(ctx, next) => {
+        console.log('================ addPost start =================');
+        const { body } = ctx.request
         try {
-            console.log('================ addPost start =================');
-            let updatePostData = ctx.request.body;
-            let PostData = await Post.updateOne(updatePostData.id, updatePostData.data, { runValidators: true })
-            console.log(updatePostData)
+            const PostData = await Post.updateOne(body.id, body.data, { runValidators: true });
+            console.log(body)
             ctx.body = {
                 errNo: 0,
                 message: '修改成功！ ',
@@ -64,19 +63,19 @@ module.exports = {
         }
     },
     findPost: async(ctx, next) => {
+        console.log('================ findPost start =================');
+        const { body } = ctx.request
         try {
-            console.log('================ findPost start =================');
-            let findPostData = ctx.request.body,
-                start = findPostData.pageCurrent || 0, // 从第几条开始
-                pageSize = (findPostData.pageSize || 10) + 1, // 每页显示条数
+            const start = body.pageCurrent || 0, // 从第几条开始
+                pageSize = (body.pageSize || 10) + 1, // 每页显示条数
 
-                PostData = await Post.findByPages(findPostData, start, pageSize),
+                PostData = await Post.findByPages(body, start, pageSize),
                 i = 0;
             for (let item of PostData) {
                 PostData[i].text = md.render(item.text)
                 i++
             }
-           // await Promise.all(PostData.map(async(item) => { item.text = md.render(item.text) }));
+            // await Promise.all(PostData.map(async(item) => { item.text = md.render(item.text) }));
             ctx.body = {
                 errNo: 0,
                 message: '查找文章成功！ ',

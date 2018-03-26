@@ -2,12 +2,12 @@ const { Menu } = require("../db/mongoose/models")
 
 module.exports = {
     addMenu: async(ctx, next) => {
+        console.log('================ addMenu start =================');
+        const { body } = ctx.request
         try {
-            console.log('================ addMenu start =================');
-            let addMenuData = ctx.request.body;
             await Menu.remove()
-            let menu = new Menu(addMenuData)
-            console.log(addMenuData)
+            let menu = new Menu(body)
+            console.log(body)
             let menuData = await menu.save()
             ctx.body = {
                 errNo: 0,
@@ -20,11 +20,11 @@ module.exports = {
         }
     },
     findMenu: async(ctx, next) => {
+        console.log('================ findMenu start =================');
+        const { body } = ctx.request
         try {
-            console.log('================ findMenu start =================');
-            let findMenuData = ctx.request.body,
-                menuData = await Menu.find(findMenuData);
-                console.log(findMenuData)
+            const menuData = await Menu.find(body);
+            console.log(body)
             ctx.body = {
                 errNo: 0,
                 message: '查找菜单成功！ ',

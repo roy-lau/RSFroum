@@ -1,7 +1,7 @@
 // 模式
 var mongoose = require('mongoose')
 var UserSchema = new mongoose.Schema({
-    name: { // 用户名
+    userName: { // 用户名
         type: String,
         minlength: 3,
         maxlength: 18,
@@ -9,7 +9,7 @@ var UserSchema = new mongoose.Schema({
     pwd: { // 密码
         type: String,
         minlength: 3,
-        maxlength: 18,
+        maxlength: 66,
         required: true
     },
     email: { // 邮箱

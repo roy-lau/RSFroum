@@ -1,9 +1,15 @@
 const Koa = require('koa'),
     router = require('koa-router')(),
+    app = new Koa(),
+    // 中间件
     bodyparser = require('koa-bodyparser'),
     moment = require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-    app = new Koa();
-require('./cors')(app) // 配置跨域支持
+    jwt = require('jsonwebtoken'),
+    jwtKoa = require('koa-jwt'),
+    { secret } = require('./config/jwt');
+
+
+require('./config/cors')(app) // 配置跨域支持
 require('./routes')(router); //把router 扔到routes文件里
 
 app
@@ -21,6 +27,11 @@ app
             ctx.throw('数据解析出错：', 422);
         }
     }))
+
+    // token 验证
+    .use(jwtKoa({ secret }).unless({
+        path: [/^\/login/,/^\/findUser/] //数组中的路径不需要通过jwt验证
+    }))
     // 接口 router
     .use(router.routes())
     .use(router.allowedMethods())
@@ -32,7 +43,7 @@ app
 
     // 错误处理
     .on('error', (err, ctx) => {
-        log.error('server error', err, ctx)
+        console.error('【server error: 】', err, ctx)
     })
 
-    .listen(3000);
+    .listen(3000,() => {console.log('server listening 3000...')});

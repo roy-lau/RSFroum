@@ -58,7 +58,7 @@
         console.log(id)
         let data = {
             praise: 2,  // 点赞
-            tread: 0,   // 点踩
+            tread: 1000,   // 点踩
             title: '修改标题',
             type: '原创',
             text: '修改内容试试',

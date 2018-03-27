@@ -86,7 +86,7 @@
             macAddr: '3194u10tu0u140501tu0ue0',
         }).then(res => {
             console.log(res.data)
-    findUser(res.data.token)
+            findUser(res.data.token)
 
         }).catch(error => {
             console.log(`[Axios catch error info] -  ${error}`)

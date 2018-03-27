@@ -4,7 +4,7 @@ const Koa = require('koa'),
     // 中间件
     bodyparser = require('koa-bodyparser'),
     moment = require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-    jwt = require('jsonwebtoken'),
+    tokenError = require('./services/tokenError'),
     jwtKoa = require('koa-jwt'),
     { secret } = require('./config/jwt');
 
@@ -29,8 +29,9 @@ app
     }))
 
     // token 验证
+    .use(tokenError()) // 拦截token
     .use(jwtKoa({ secret }).unless({
-        path: [/^\/login/,/^\/findUser/] //数组中的路径不需要通过jwt验证
+        path: [/^\/login/] //数组中的路径不需要通过jwt验证
     }))
     // 接口 router
     .use(router.routes())

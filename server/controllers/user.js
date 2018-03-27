@@ -1,8 +1,6 @@
 const { User } = require("../db/mongoose/models"),
     bcrypt = require('bcrypt'),
     jwt = require('jsonwebtoken'),
-    util = require('util'),
-    verify = util.promisify(jwt.verify), // 解密
     { secret } = require('../config/jwt');
 
 module.exports = {
@@ -81,10 +79,7 @@ module.exports = {
     findUser: async(ctx, next) => {
         console.log('================ findUser start =================');
         const { body } = ctx.request;
-        const token = ctx.header.authorization // 获取jwt
         try {
-            let payload;
-            if(token) payload = await verify(token.split(' ')[1], secret) // // 解密，获取payload
             const start = body.pageCurrent || 0, // 从第几条开始
                 pageSize = (body.pageSize || 10) + 1, // 每页显示条数
 

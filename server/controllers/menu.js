@@ -24,7 +24,6 @@ module.exports = {
         const { body } = ctx.request
         try {
             const menuData = await Menu.find(body);
-            console.log(body)
             ctx.body = {
                 errNo: 0,
                 message: '查找菜单成功！ ',

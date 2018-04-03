@@ -35,6 +35,7 @@ module.exports = {
         console.log('================ delUser start =================');
         const { body } = ctx.request;
         try {
+            console.log('delUser body: ', body)
             const userData = await User.remove(body);
             ctx.body = {
                 errNo: 0,
@@ -65,6 +66,7 @@ module.exports = {
         console.log('================ findOneUser start =================');
         const { body } = ctx.request;
         try {
+            // console.log('findOneUser body: ',body)
             const userData = await User.findOne(body);
             ctx.body = {
                 errNo: 0,
@@ -104,7 +106,7 @@ module.exports = {
             }
             // 匹配密码是否相等
             if (await bcrypt.compare(body.pwd, userData.pwd)) {
-            const token = jwt.sign(JSON.parse(JSON.stringify(userData)), secret, { expiresIn: '1h' }) //token签名 有效期为1小时
+            const token = jwt.sign({id:userData._id}, secret, { expiresIn: '1h' }) //token签名 有效期为1小时
             userData.token = token;
                 ctx.body = {
                     errNo: 0,

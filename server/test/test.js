@@ -1,0 +1,28 @@
+const assert = require('assert'),
+    User = require('./api/user')
+    Menu = require('./api/menu')
+
+describe('TEST API', function() {
+    // describe('#indexOf()', function() {
+    //     it('未找到值时应当返回-1', function() {
+    //         assert.equal(-1, [1, 2, 3].indexOf(4))
+    //     })
+    // })
+
+    describe('# user_api', function() {
+        describe('## User', function() {
+            it('Test addUser API (新增用户)', User.addUser)
+            it('Test login API (登陆)', User.login)
+            it('Test findOneUser API (查找一个用户)', User.findOneUser)
+            // it('Test updateUser API (修改用户)', User.updateUser)
+            it('Test findUser API (查找用户)', User.findUser)
+            it('Test delUser API (删除用户)', User.delUser)
+        })
+    })
+    describe('# menu_api', function() {
+        describe('## Menu', function() {
+            // it('Test addMenu API (新增菜单)', Menu.addMenu)
+            it('Test findMenu API (查找菜单)', Menu.findMenu)
+        })
+    })
+})

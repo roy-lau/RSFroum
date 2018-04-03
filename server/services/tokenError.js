@@ -30,20 +30,21 @@ module.exports = function() {
                         message: 'token verify fail: ' + err
                     };
                 }
-            }else{
-            	 ctx.status = 403;
-                    ctx.body = {
-                        errNo: 1,
-                        message: 'token verify fail '
-                    };
             }
+            // else{
+            // 	 ctx.status = 403;
+            //         ctx.body = {
+            //             errNo: 1,
+            //             message: '没有在请求头中找到token'
+            //         };
+            // }
             await next();
         } catch (err) {
             if (err.status === 401) {
                 ctx.status = 401;
                 ctx.body = {
                     errNo: 1,
-                    message: '认证失败'
+                    message: '认证失败'+err
                 };
             } else {
                 err.status = 404;

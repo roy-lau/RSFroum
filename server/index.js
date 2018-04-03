@@ -18,7 +18,7 @@ app
         const start = Date.now();
         await next();
         const ms = Date.now() - start;
-        console.log(`[${moment}] ${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms`);
+        console.log(`[${moment}] ${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms\n`);
     })
     // middlewares
     .use(bodyparser({
@@ -28,15 +28,16 @@ app
         }
     }))
 
-    // token 验证
-    .use(tokenError()) // 拦截token
-    .use(jwtKoa({ secret }).unless({
-        path: [/^\/login/] //数组中的路径不需要通过jwt验证
-    }))
+
     // 接口 router
     .use(router.routes())
     .use(router.allowedMethods())
 
+    .use(tokenError()) // 拦截token
+    // token 验证
+    .use(jwtKoa({ secret }).unless({
+        path: ['/login'] //数组中的路径不需要通过jwt验证
+    }))
     // response
     // .use(async ctx => {
     //     ctx.body = { info: "is json data ?" };

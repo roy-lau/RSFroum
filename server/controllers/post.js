@@ -66,7 +66,8 @@ module.exports = {
         console.log('================ findPost start =================');
         const { body } = ctx.request
         try {
-            const start = body.pageCurrent || 0, // 从第几条开始
+            console.log('findPost body: ',body)
+            let start = body.pageCurrent || 0, // 从第几条开始
                 pageSize = (body.pageSize || 10) + 1, // 每页显示条数
 
                 PostData = await Post.findByPages(body, start, pageSize),

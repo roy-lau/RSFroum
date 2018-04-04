@@ -50,8 +50,8 @@ module.exports = {
         console.log('================ addPost start =================');
         const { body } = ctx.request
         try {
+            // console.log('updatePost body: ',body)
             const PostData = await Post.updateOne(body.id, body.data, { runValidators: true });
-            console.log(body)
             ctx.body = {
                 errNo: 0,
                 message: '修改成功！ ',
@@ -66,7 +66,7 @@ module.exports = {
         console.log('================ findPost start =================');
         const { body } = ctx.request
         try {
-            console.log('findPost body: ',body)
+            // console.log('findPost body: ',body)
             let start = body.pageCurrent || 0, // 从第几条开始
                 pageSize = (body.pageSize || 10) + 1, // 每页显示条数
 

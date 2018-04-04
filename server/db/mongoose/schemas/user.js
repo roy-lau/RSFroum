@@ -1,6 +1,9 @@
-// 模式
-var mongoose = require('mongoose')
-var UserSchema = new mongoose.Schema({
+// 模式——用户
+const mongoose = require('mongoose'),
+moment = require('moment')().format('YYYY-MM-DD HH:mm:ss')
+
+
+const UserSchema = new mongoose.Schema({
     userName: { // 用户名
         type: String,
         minlength: 3,
@@ -34,11 +37,11 @@ var UserSchema = new mongoose.Schema({
     macAddr: String,
     createAt: { // 用户创建时间
         type: Date,
-        default: Date.now()
+        default: moment
     },
     updateAt: { // 用户更新时间
         type: Date,
-        default: Date.now()
+        default: moment
     }
 })
 
@@ -49,10 +52,10 @@ UserSchema.pre('save', function(next) {
     // 判断数据是否是新添加的
     if (this.isNew) {
         // 如果是新添加的就将创建的时间和更新的时间设置为当前时间
-        this.createAt = this.updateAt = Date.now()
+        this.createAt = this.updateAt = moment
     } else {
         // 如果数据已经有了，就将更新时间设置为当前时间
-        this.updateAt = Date.now()
+        this.updateAt = moment
     }
     next()
 })

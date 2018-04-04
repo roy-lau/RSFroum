@@ -1,6 +1,6 @@
 const assert = require('assert'),
-    User = require('./api/user')
-    Menu = require('./api/menu')
+    User = require('./api/user'),
+    Menu = require('./api/menu'),
     Post = require('./api/post')
 
 describe('TEST API', function() {

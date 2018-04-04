@@ -35,7 +35,7 @@ module.exports = {
         console.log('================ delUser start =================');
         const { body } = ctx.request;
         try {
-            console.log('delUser body: ', body)
+            // console.log('delUser body: ', body)
             const userData = await User.remove(body);
             ctx.body = {
                 errNo: 0,

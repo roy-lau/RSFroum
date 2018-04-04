@@ -24,12 +24,12 @@
             axios.get(base_url + '/findMenu').then(res => {
                 let randomLengtNum = (0 + Math.round(Math.random() * res.data.data.menuList.length)),
                     // 哈哈，随机出来一个name，用来做为帖子的类型
-                    randomName = res.data.data.menuList[randomLengtNum].name;
-                return { randomName, randomLengtNum }
+                    randomType = res.data.data.menuList[randomLengtNum].name;
+                return { randomType, randomLengtNum }
             }).then(data => {
                 axios.post(base_url + '/addPost', {
                     title: '标题' + data.randomLengtNum,
-                    type: data.randomName,
+                    type: data.randomType,
                     text: '__加粗__ _斜体_' // markdown格式
                 }).then(res => {
                     // console.log(res.data)
@@ -54,7 +54,7 @@
                 assert.ifError(res.data.errNo)
                 done()
             }).catch(error => {
-                console.log(`[Axios catch error info] -  ${error}`)
+                console.log(`[Axios findPost catch error info] -  ${error}`)
             })
 
         },
@@ -67,7 +67,7 @@
                 assert.ifError(res.data.errNo)
                 done()
             }).catch(error => {
-                console.log(`[Axios catch error info] -  ${error}`)
+                console.log(`[Axios delPost catch error info] -  ${error}`)
             })
         },
         /*
@@ -75,7 +75,7 @@
          */
         updatePost(done) {
             let data = {
-                praise: 2, // 点赞
+                praise: 20, // 点赞
                 tread: 1000, // 点踩
                 title: '修改标题',
                 type: '原创',
@@ -87,7 +87,7 @@
                 assert.ifError(res.data.errNo)
                 done()
             }).catch(error => {
-                console.log(`[Axios catch error info] -  ${error}`)
+                console.log(`[Axios updatePost catch error info] -  ${error}`)
             })
-        }
+        },
     }

@@ -15,6 +15,7 @@
 	- [2、删除(delPost)](#delPost)
 	- [3、修改(updatePost)](#updatePost)
 	- [4、查询(findPost)](#findPost)
+	- [5、点赞/点踩(praiseTreadPost)](#praiseTreadPost)
 
 
 ### <a name="Protocol" /> 规约：

@@ -1,6 +1,6 @@
 <template>
     <div id="head-menu">
-        <!-- <button @click="addMenu">新增菜单</button> -->
+        <button @click="addMenu">新增菜单</button>
         <ul class="menu-list">
             <router-link v-for="(list,index) in menuList" :to="list.path" :key="index">
                 <li v-text="list.name"></li>

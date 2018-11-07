@@ -36,7 +36,7 @@ app
     .use(tokenError()) // 拦截token
     // token 验证
     .use(jwtKoa({ secret }).unless({
-        path: ['/login'] //数组中的路径不需要通过jwt验证
+        path: ['/login'] //数组中的路径不需要通过 jwt 验证
     }))
     // response
     // .use(async ctx => {

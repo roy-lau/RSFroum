@@ -40,8 +40,11 @@
     "@vue/cli-service": "^3.0.0-beta.6",
     "vue-template-compiler": "^2.5.13"
   },
-   "nodemonConfig": {
-    "ignore": ["./server/test/*", "docs/*"],
+  "nodemonConfig": {
+    "ignore": [
+      "./server/test/*",
+      "docs/*"
+    ],
     "delay": "2500"
   },
   "babel": {

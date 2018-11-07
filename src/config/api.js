@@ -1,13 +1,18 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
-  timeout: 5000,
-  // headers: {'X-Custom-Header': 'foobar'}
+    baseURL: "http://localhost:3000",
+    timeout: 5000,
+    // headers: {'X-Custom-Header': 'foobar'}
 });
 
 // 请求
 instance.interceptors.request.use(config => {
+    let token = sessionStorage.getItem('TOKEN');
+    console.log(token)
+    if (token) {
+        config.headers['Authorization'] = 'Basic ' + token;
+    }
     return config;
 }, error => {
     return Promise.reject(error)

@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-import '@/config/api.js'
+
 const Header = () => import ('@/components/header')
 export default {
     name: 'app',

@@ -1,5 +1,5 @@
 <template>
-    <div id="header">
+    <div id="Header">
         <head-menu/>
         <head-register/>
     </div>
@@ -11,7 +11,7 @@ const headRegister = () =>
     import ('@/base/head-register')
 
 export default {
-    name: 'header',
+    name: 'Header',
     components: {
         headMenu,
         headRegister

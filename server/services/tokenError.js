@@ -5,7 +5,6 @@ const { secret } = require('../config/jwt');
 
 
 
-
 // https://segmentfault.com/a/1190000012255933
 
 
@@ -16,8 +15,7 @@ module.exports = function() {
     return async function(ctx, next) {
         try {
             // 获取jwt
-            const token = ctx.request.header;
-            console.log("token --------",token)
+            const token = ctx.header.authorization;
             if (token) {
                 try {
                     // 解密payload，获取用户名和ID
@@ -32,24 +30,21 @@ module.exports = function() {
                     };
                 }
             }
-            else{
-            	 ctx.status = 403;
-                    ctx.body = {
-                        errNo: 1,
-                        message: '没有在请求头中找到 token'
-                    };
-            }
+            // else {
+            //     ctx.status = 403;
+            //     ctx.body = {
+            //         errNo: 1,
+            //         message: '没有在请求头中找到 token'
+            //     };
+            // }
             await next();
         } catch (err) {
-            if (err.status === 401) {
-                ctx.status = 401;
-                ctx.body = {
-                    errNo: 1,
-                    message: '认证失败 ' + err
-                };
-            } else {
-                err.status = 404;
-            }
+            ctx.status = 401;
+            ctx.body = {
+                errNo: 1,
+                message: '认证失败 ' + err
+            };
         }
     }
+
 }

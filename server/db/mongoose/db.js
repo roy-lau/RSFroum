@@ -12,7 +12,7 @@ const mongoose = require('mongoose'),
 // uri = `mongodb://${options.user}:${options.pwd}@${options.host}:${options.port}/${options.database}?authSource=${options.authSource}`;
 mongoose.Promise = global.Promise //需要
 mongoose.connection
-  .openUri(uri)
+  .openUri(uri,{useNewUrlParser:true} )
   .once('open', () => {
     console.log('数据库连接成功！')
   })

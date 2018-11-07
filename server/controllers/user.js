@@ -98,6 +98,7 @@ module.exports = {
     },
     login: async(ctx) => {
         const { body } = ctx.request
+        console.log("login 接口 ctx.request --------",ctx.request)
         try {
             const userData = await User.findOne({ userName: body.userName });
             if (!userData) {

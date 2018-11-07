@@ -9,12 +9,14 @@ const Koa = require('koa'),
     { secret } = require('./config/jwt');
 
 
+
 require('./config/cors')(app) // 配置跨域支持
 require('./routes')(router); //把router 扔到routes文件里
 
+
 app
     // logger
-    .use(async(ctx, next) => {
+    .use(async (ctx, next) => {
         const start = Date.now();
         await next();
         const ms = Date.now() - start;
@@ -29,15 +31,20 @@ app
     }))
 
 
-    // 接口 router
-    .use(router.routes())
-    .use(router.allowedMethods())
 
-    .use(tokenError()) // 拦截token
     // token 验证
     .use(jwtKoa({ secret }).unless({
         path: ['/login'] //数组中的路径不需要通过 jwt 验证
     }))
+    .use(tokenError()) // 拦截token
+
+
+    // 接口 router
+    .use(router.routes())
+    .use(router.allowedMethods())
+
+
+
     // response
     // .use(async ctx => {
     //     ctx.body = { info: "is json data ?" };
@@ -48,4 +55,4 @@ app
         console.error('【server error: 】', err, ctx)
     })
 
-    .listen(3000,() => {console.log('server listening 3000...')});
+    .listen(3000, () => { console.log('server listening 3000...') });

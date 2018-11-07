@@ -11,7 +11,8 @@ instance.interceptors.request.use(config => {
     let token = sessionStorage.getItem('TOKEN');
     console.log(token)
     if (token) {
-        config.headers['Authorization'] = 'Basic ' + token;
+        // Authentication
+        config.headers['authorization'] = 'Bearer ' + token;
     }
     return config;
 }, error => {

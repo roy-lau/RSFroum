@@ -6,7 +6,8 @@
 </template>
 <script>
 
-const Header = () => import ('@/components/header')
+import Header from "@/views/header"
+
 export default {
     name: 'app',
     components: {

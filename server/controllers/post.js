@@ -66,7 +66,7 @@ module.exports = {
         console.log('================ findPost start =================');
         const { body } = ctx.request
         try {
-            // console.log('findPost body: ',body)
+            console.log('findPost body: ',body)
             let start = body.pageCurrent || 0, // 从第几条开始
                 pageSize = (body.pageSize || 10) + 1, // 每页显示条数
 

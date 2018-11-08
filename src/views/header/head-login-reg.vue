@@ -14,7 +14,7 @@ export default {
     methods: {
         adduser() {
             this.$axios.post('addUser', {
-                user: 'admin1',
+                userName: 'admin1',
                 pwd: 'aaaa324',
                 email: '321@163.com',
                 phone: 166689789
@@ -24,7 +24,7 @@ export default {
         },
         login() {
             this.$axios.post('login', {
-                user: 'admin1',
+                userName: 'admin1',
                 pwd: 'aaaa324',
                 email: '321@163.com',
                 phone: 166689789

@@ -33,10 +33,10 @@ app
 
 
     // token 验证
-    .use(jwtKoa({ secret }).unless({
-        path: ['/login'] //数组中的路径不需要通过 jwt 验证
-    }))
-    .use(tokenError()) // 拦截token
+    // .use(jwtKoa({ secret }).unless({
+    //     path: ['/login'] //数组中的路径不需要通过 jwt 验证
+    // }))
+    // .use(tokenError()) // 拦截token
 
 
     // 接口 router

@@ -16,46 +16,50 @@
 - enum/match 枚举验证/匹配验证
 - validate 自定义验证规则
 
-	var schema = new mongoose.Schema({
-	    name:{
-	        type:'String',
-	        minlength: 3,
-        	maxlength: 18,
-	        required:true //姓名非空
-	      },
-	      age:{
-	        type:'Nunmer',
-	        min:18,       //年龄最小18
-	        max:120       //年龄最大120
-	      },
-	      city:{
-	        type:'String',
-	        enum:['北京','上海']  //只能是北京、上海人
-	      },
-	      other:{
-	        type:'String',
-	        validate:[validator,err]  //validator是一个验证函数，err是验证失败的错误信息
-	      }
-	});
+```js
+var schema = new mongoose.Schema({
+    name:{
+        type:'String',
+        minlength: 3,
+    	maxlength: 18,
+        required:true //姓名非空
+      },
+      age:{
+        type:'Nunmer',
+        min:18,       //年龄最小18
+        max:120       //年龄最大120
+      },
+      city:{
+        type:'String',
+        enum:['北京','上海']  //只能是北京、上海人
+      },
+      other:{
+        type:'String',
+        validate:[validator,err]  //validator是一个验证函数，err是验证失败的错误信息
+      }
+});
+```
 
 自定义验证
 
-	var userSchema = new Schema({
-	  phone: {
-	    type: String,
-	    validate: {
-	      validator: function(v) {
-	        return /d{3}-d{3}-d{4}/.test(v);
-	      },
-	      message: '{VALUE} is not a valid phone number!'
-	    }
-	  }
-	});
+```js
+var userSchema = new Schema({
+  phone: {
+    type: String,
+    validate: {
+      validator: function(v) {
+        return /d{3}-d{3}-d{4}/.test(v);
+      },
+      message: '{VALUE} is not a valid phone number!'
+    }
+  }
+});
+```
 
 验证失败
 
 
-如果验证失败，则会返回err信息，err是一个对象该对象属性如下
+如果验证失败，则会返回`err`信息，`err`是一个对象该对象属性如下
 
     err.errors                	// 错误集合（对象）
     err.errors.color          	// 错误属性(Schema的color属性)
@@ -75,11 +79,12 @@
 
 3. 事件
 
-	validate ：已验证（但尚未保存）
-	save ：已保存
-	init ：已从DB初始化
-	remove 已被删除
+- validate ：已验证（但尚未保存）
+- save ：已保存
+- init ：已从DB初始化
+- remove 已被删除
 
+```mongoose
 	UserSchema.post('validate', function(doc) { //1
 	 console.log('%s 已验证（但尚未保存）2', doc._id);
 	});
@@ -92,8 +97,9 @@
 	UserSchema.post('remove', function(doc) {
 	console.log('%s 已被删除', doc._id);
 	});
+```
 
-methods和statics的区别
+`methods`和`statics`的区别
 
 - 区别就是一个给Model添加方法`（statics）`，
 - 一个给实例添加方法`（methods）`。
@@ -103,7 +109,7 @@ methods和statics的区别
 	Model.update(conditions, doc, [options], [callback]) // 语法
 
 * `conditions：` 查询条件；
-* `doc：` 需要修改的数据，不能修改主键（_id）；
+* `doc：` 需要修改的数据，不能修改主键（`_id`）；
 * `options：` 控制选项；
 * `callback：` 回调函数，返回的是受影响的行数。
 * options有以下选项：

@@ -22,7 +22,6 @@ module.exports = {
     findMenu: async(ctx, next) => {
 
         console.log('================ findMenu start =================');
-        console.log("findMenu 接口 ctx.request --------",ctx.request)
         const { body } = ctx.request
         try {
             const menuData = await Menu.find(body);

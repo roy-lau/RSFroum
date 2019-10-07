@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^2.0.0",
     "fundebug-javascript": "^0.3.5",
     "highlight.js": "^9.12.0",
     "jsonwebtoken": "^8.2.0",

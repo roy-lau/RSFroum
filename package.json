@@ -4,7 +4,7 @@
   "description": "a koa build RSFroum",
   "private": true,
   "scripts": {
-    "dev": ".\\node_modules\\.bin\\nodemon .\\server\\index.js",
+    "app": ".\\node_modules\\.bin\\nodemon .\\server\\index.js",
     "test": ".\\node_modules\\.bin\\mocha .\\server\\test --watch -s 5s",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

@@ -3,7 +3,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const instance = axios.create({
-  baseURL:  "http://localhost:3000",
+  baseURL:  "http://localhost:3001",
   timeout: 100 * 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 });

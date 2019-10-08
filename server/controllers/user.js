@@ -1,10 +1,9 @@
 const { User } = require("../db/mongoose/models"),
     bcrypt = require('bcrypt'),
-    jwt = require('jsonwebtoken'),
-    { secret } = require('../config/jwt');
+    jwt = require('jsonwebtoken'), { secret } = require('../config/jwt');
 
 module.exports = {
-    addUser: async(ctx, next) => {
+    addUser: async (ctx, next) => {
         console.log('================ addUser start =================');
         const { body } = ctx.request;
         try {
@@ -24,14 +23,14 @@ module.exports = {
                     data: user,
                 }
             } else {
-                ctx.body = {errNo: 1,message: '用户名已经存在',}
+                ctx.body = { errNo: 1, message: '用户名已经存在', }
             }
         } catch (err) {
             console.log(`[catch addUser error] - ${err}`); // 这里捕捉到错误 `error`
             ctx.body = { errNo: 1, message: err }
         }
     },
-    delUser: async(ctx, next) => {
+    delUser: async (ctx, next) => {
         console.log('================ delUser start =================');
         const { body } = ctx.request;
         try {
@@ -47,7 +46,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    updateUser: async(ctx, next) => {
+    updateUser: async (ctx, next) => {
         console.log('================ updateUser start =================');
         const { body } = ctx.request;
         try {
@@ -62,7 +61,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findOneUser: async(ctx, next) => {
+    findOneUser: async (ctx, next) => {
         console.log('================ findOneUser start =================');
         const { body } = ctx.request;
         try {
@@ -78,7 +77,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findUser: async(ctx, next) => {
+    findUser: async (ctx, next) => {
         console.log('================ findUser start =================');
         const { body } = ctx.request;
         try {
@@ -96,7 +95,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    login: async(ctx) => {
+    login: async (ctx) => {
         const { body } = ctx.request
         try {
             const userData = await User.findOne({ userName: body.userName });
@@ -106,13 +105,13 @@ module.exports = {
             }
             // 匹配密码是否相等
             if (await bcrypt.compare(body.pwd, userData.pwd)) {
-            const token = jwt.sign({id:userData._id}, secret, { expiresIn: '1h' }) //token签名 有效期为1小时
-            userData.token = token;
+                const token = jwt.sign({ id: userData._id }, secret, { expiresIn: '1h' }) //token签名 有效期为1小时
+                userData.token = token;
                 ctx.body = {
                     errNo: 0,
                     message: '登录成功',
                     userData,
-                    token,
+                    token
                 }
             } else {
                 ctx.body = { errNo: 1, message: '密码错误' }

@@ -58,7 +58,7 @@ export default {
     right: 0;
     bottom: 0;
     background-color: black;
-    z-index: 9999;
+    z-index: 9;
     opacity: 0.8;
 
     .dialog-box {
@@ -67,7 +67,8 @@ export default {
         // height: 100%;
         position: relative;
         top: 30%;
-        left: 30%;
+        left: 50%;
+        transform: translate(-50%,-50%);
         padding: 5px;
         background-color: white;
         border-radius: 2%;

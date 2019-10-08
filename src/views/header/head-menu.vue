@@ -57,8 +57,13 @@ export default {
         // 获取菜单
         findMenu() {
             this.$axios.get('findMenu').then(res => {
-                this.menuList = res.data.menuList;
-                sessionStorage.setItem('menuList', JSON.stringify(res.data.menuList))
+                if (!res.code && res.data) {
+                    this.menuList = res.data.menuList;
+                    sessionStorage.setItem('menuList', JSON.stringify(res.data.menuList))
+                }else{
+                    console.info('获取菜单失败，尝试新增菜单！')
+                    this.addMenu()
+                }
             })
         },
         // 登录

@@ -2,7 +2,6 @@ const { Menu } = require("../db/mongoose/models")
 
 module.exports = {
     addMenu: async(ctx, next) => {
-        console.log('================ addMenu start =================');
         const { body } = ctx.request
         try {
             await Menu.remove()
@@ -21,7 +20,6 @@ module.exports = {
     },
     findMenu: async(ctx, next) => {
 
-        console.log('================ findMenu start =================');
         const { body } = ctx.request
         try {
             const menuData = await Menu.find(body);

@@ -1,9 +1,9 @@
 <!-- 发帖 -->
 <template>
     <div id="post-markdown">
-        <mavon-editor class="editor" v-model="MEvalue"></mavon-editor>
+        <mavon-editor class="editor" v-model="publishData.text"></mavon-editor>
         <br />
-        <button class="publish" @click="postMEvalue">发布</button>
+        <button class="publish-btn" @click="publish">发布</button>
     </div>
 </template>
 <script>
@@ -15,20 +15,26 @@ export default {
     components: {
         mavonEditor,
     },
+    props: {
+        publishData: {
+            type: Object,
+            required: true,
+            default: {}
+        },
+    },
     data() {
-        return {
-             MEvalue: ''
-        };
+        return {};
     },
     methods: {
-        postMEvalue() {
-             let publishData ={
-                title: '大标题',
-                type: '原创',
-                text: this.MEvalue
-            }
-            this.$axios.post('addPost',publishData).then(res => {
-                console.log(res)
+        // 发布
+        publish() {
+            this.$axios.post('addPost', this.publishData).then(res => {
+                if (res.errNo) {
+                    alert(JSON.stringify(res.message, null, 2))
+                } else {
+                    alert(res.message)
+                    console.log(res)
+                }
             })
         }
     },
@@ -44,7 +50,7 @@ export default {
     height: 580px;
 }
 
-.publish {
+.publish-btn {
     float: right;
     padding: 8px;
     color: white;

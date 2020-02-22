@@ -4,8 +4,8 @@
   "description": "a koa build RSFroum",
   "private": true,
   "scripts": {
-    "app": ".\\node_modules\\.bin\\nodemon .\\server\\index.js",
-    "test": ".\\node_modules\\.bin\\mocha .\\server\\test --watch -s 5s",
+    "app": "nodemon ./server/index.js",
+    "test": "mocha ./server/test --watch -s 5s",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "bcrypt": "^2.0.0",
+    "bcrypt": "^4.0.0",
     "fundebug-javascript": "^0.3.5",
     "highlight.js": "^9.12.0",
     "jsonwebtoken": "^8.2.0",

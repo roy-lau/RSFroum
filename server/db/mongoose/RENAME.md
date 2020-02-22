@@ -84,7 +84,7 @@ var userSchema = new Schema({
 - init ：已从DB初始化
 - remove 已被删除
 
-```mongoose
+```js
 	UserSchema.post('validate', function(doc) { //1
 	 console.log('%s 已验证（但尚未保存）2', doc._id);
 	});

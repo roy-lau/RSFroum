@@ -1,12 +1,12 @@
 <template>
-    <div id="hot">
-        <!-- <h2>最热</h2> -->
-        <div class="content" v-for="(item,index) in htmlCode" :key="index">
+    <div id="Pages">
+        <!-- <h2>{{$route.query}}</h2> -->
+        <div id="page" v-for="(item,index) in pages" :key="index">
             <h3 class="title">
-                <router-link to="">
-                      [ {{item.type}} ] {{item.title}}
+                <router-link :to="{path: 'page',query:{type:item.type,_id:item._id}}">
+                    [ {{item.type}} ] {{item.title}}
                 </router-link>
-                <a href="#" class="close" @click="delPost(item._id)" title="删除此帖">X</a>
+                <i class="close" @click="delPost(item._id)" title="删除此帖">X</i>
             </h3>
             <div class="body">
                 <span v-html="item.text" v-highlight></span>
@@ -24,22 +24,22 @@
     </div>
 </template>
 <script>
-import hljs from 'highlight.js' // 参考 https://highlightjs.org/
-import 'highlight.js/styles/atelier-dune-light.css' //样式文件
+import highlight from "@/directive/highlight"
 
 export default {
-    name: 'hot',
+    name: 'Pages',
     data() {
         return {
-            htmlCode: '',
+            pages: [],
         };
     },
+    directives: { highlight },
     methods: {
-        // 查找最热帖子
-        findHot() {
+        // 查找文章列表
+        findPages() {
             this.$axios.get('findPost').then(res => {
                 if (res.errNo === 0) {
-                    this.htmlCode = res.data
+                    this.pages = res.data
                 }
             })
         },
@@ -47,25 +47,13 @@ export default {
             var isClose = confirm("您确定要删除这个帖子？")
             isClose && this.$axios.delete('delPost', { _id: id }).then(res => {
                 if (res.errNo === 0) {
-                    this.findHot()
+                    this.findPages()
                 }
             })
         }
     },
-    directives: {
-        highlight: {
-            // 指令的定义
-            inserted: function(el) {
-                let blocks = el.querySelectorAll('pre code');
-                blocks.forEach((block) => {
-                    hljs.highlightBlock(block)
-                    console.log(hljs)
-                })
-            }
-        }
-    },
     created() {
-        this.findHot()
+        this.findPages()
     },
 }
 </script>
@@ -73,33 +61,30 @@ export default {
 /*text-decoration:line-through; 删除线 以后可能会用*/
 
 
-
-.content {
-    margin: auto;
+#page {
+    margin: 5px auto;
     width: 60%;
-    border: 20px;
     padding: 5px;
-    border-color: red;
-    background-color: #71d473;
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+    overflow: hidden;
+    color: #303133;
+    transition: .3s;
+
+    &:hover {
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    }
 
     .title {
         text-decoration: underline;
     }
-    .close{
+
+    i.close {
+        cursor: pointer;
         float: right;
-        text-decoration: none;
     }
-}
 
+    .body {}
 
-.hljs {
-    display: block;
-    overflow-x: auto;
-}
-
-blockquote {
-    padding: 0 1em;
-    color: #6a737d;
-    border-left: .25em solid #dfe2e5;
 }
 </style>

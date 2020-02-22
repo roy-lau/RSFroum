@@ -7,12 +7,16 @@ Vue.use(Router)
 export default new Router({
     routes: [{
             path: '/',
-            redirect: '/hot'
+            redirect: '/pages'
         },
         {
-            path: '/hot',
-            name: '最火',
-            component: () => import( /* webpackChunkName: "hot" */ '@/views/hot')
+            path: '/pages',
+            name: '文章列表',
+            component: () => import( /* webpackChunkName: "pages" */ '@/views/pages')
+        },{
+            path: '/page',
+            name: '文章',
+            component: () => import( /* webpackChunkName: "page" */ '@/views/page')
         },
         {
             path: '/post',
@@ -31,11 +35,11 @@ export default new Router({
         //   path: '/layout',
         //   name: 'layout',
         //   component: layout,
-        //   redirect: '/layout/hot',
+        //   redirect: '/layout/pages',
         //   children: [{
-        //     path: 'hot',
-        //     name: '最火',
-        //     component: hot,
+        //     path: 'pages',
+        //     name: '文章列表',
+        //     component: pages,
         //   }],
         // }
     ]

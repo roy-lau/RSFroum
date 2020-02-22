@@ -27,6 +27,7 @@ module.exports = routes => {
         .post('/addPost', Post.addPost)
         .delete('/delPost', Post.delPost)
         .post('/updatePost', Post.updatePost)
+        .get('/findOnePost', Post.findOnePost)
         .get('/findPost', Post.findPost)
 
 }

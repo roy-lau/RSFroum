@@ -2,35 +2,40 @@
     <div id="post">
         <br />
         <br />
-        <select name="" id="" v-model="selectVal">
+        <select v-model="publishData.type">
             <option v-for="item in selectList" :value="item.path">{{item.name}}</option>
         </select>
-        <input type="text" placeholder="请输入标题……" />
+        <input type="text" v-model="publishData.title" placeholder="请输入标题……" />
         <br />
         <br />
-        <psot-markdown></psot-markdown>
+        <post-markdown :publish-data="publishData" />
     </div>
 </template>
 <script>
-// const psotMarkdown = () => import('@/components/post-markdown')
-import psotMarkdown from '@/components/post-markdown'
+// const postMarkdown = () => import('@/components/post-markdown')
+import postMarkdown from '@/components/post-markdown'
 
 export default {
     name: 'post',
     components: {
-        psotMarkdown,
+        postMarkdown,
     },
     data() {
         return {
             selectList: [],
-            selectVal:''
+            publishData: {
+                title: '',
+                type: '',
+                text: ''
+            }
         };
     },
     methods: {
         findSelect() {
-          let list = JSON.parse(sessionStorage.getItem('menuList'))
-            this.selectList = list.slice(2,list.length)
-        }
+            let list = JSON.parse(sessionStorage.getItem('menuList'))
+            this.selectList = list.slice(2, list.length)
+        },
+
     },
     created() {
         this.findSelect()

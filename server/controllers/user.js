@@ -4,7 +4,6 @@ const { User } = require("../db/mongoose/models"),
 
 module.exports = {
     addUser: async (ctx, next) => {
-        console.log('================ addUser start =================');
         const { body } = ctx.request;
         try {
             if (!body.userName || !body.pwd) { // 用户名，密码不能为空
@@ -31,7 +30,6 @@ module.exports = {
         }
     },
     delUser: async (ctx, next) => {
-        console.log('================ delUser start =================');
         const { body } = ctx.request;
         try {
             // console.log('delUser body: ', body)
@@ -47,7 +45,6 @@ module.exports = {
         }
     },
     updateUser: async (ctx, next) => {
-        console.log('================ updateUser start =================');
         const { body } = ctx.request;
         try {
             await User.updateOne(body.id, body.data, { runValidators: true })
@@ -62,7 +59,6 @@ module.exports = {
         }
     },
     findOneUser: async (ctx, next) => {
-        console.log('================ findOneUser start =================');
         const { body } = ctx.request;
         try {
             // console.log('findOneUser body: ',body)
@@ -78,7 +74,6 @@ module.exports = {
         }
     },
     findUser: async (ctx, next) => {
-        console.log('================ findUser start =================');
         const { body } = ctx.request;
         try {
             const start = body.pageCurrent || 0, // 从第几条开始

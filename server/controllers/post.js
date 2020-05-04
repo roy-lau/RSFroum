@@ -4,18 +4,18 @@ const md = require('markdown-it')({ // markdown 文档配置
     html: true,
     linkify: true,
     typographer: true,
-    highlight: function(str, lang) { // markdown 文档的code
+    highlight: function (str, lang) { // markdown 文档的code
         if (lang && hljs.getLanguage(lang)) {
             try {
                 return `<pre class="hljs"><code>${hljs.highlight(lang, str, true).value}</code></pre>`;
-            } catch (__) {}
+            } catch (__) { }
         }
         return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`;
     }
 });
 
 module.exports = {
-    addPost: async (ctx, next) => {
+    async addPost(ctx, next) {
         let { body } = ctx.request
         try {
             body.text = md.render(body.text) // 转为 markdown
@@ -31,7 +31,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err.message }
         }
     },
-    delPost: async (ctx, next) => {
+    async delPost(ctx, next) {
         const { body } = ctx.request
         try {
             const PostData = await Post.remove(body);
@@ -45,7 +45,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    updatePost: async (ctx, next) => {
+    async updatePost(ctx, next) {
         const { body } = ctx.request
         try {
             // console.log('updatePost body: ',body)
@@ -60,7 +60,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findOnePost: async (ctx, next) => {
+    async findOnePost(ctx, next) {
         const param = ctx.query
         try {
             console.log('findOnePost param: ', param)
@@ -75,7 +75,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findPost: async (ctx, next) => {
+    async findPost(ctx, next) {
         const params = ctx.query
         try {
             console.log('findPost params: ', params)
@@ -84,7 +84,7 @@ module.exports = {
 
                 PostData = await Post.findByPages(params, start, pageSize);
 
-            // await Promise.all(PostData.map(async(item) => { item.text = md.render(item.text) }));
+            // await Promise.all(PostData.map(async(item) { item.text = md.render(item.text) }));
             ctx.body = {
                 errNo: 0,
                 message: '查找文章成功！ ',

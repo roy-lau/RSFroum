@@ -52,7 +52,7 @@ module.exports = {
       @param {String} 表格名
       @return {Object} 查询数据
     */
-    mysql_connection.query() {
+    mysql_query() {
         connection.query(`SELECT * FROM user`, function(err, result) {
             if (err) {
                 console.log('[mysql查询 失败] - ', err.message);

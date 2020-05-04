@@ -1,7 +1,7 @@
 const { Menu } = require("../db/mongoose/models")
 
 module.exports = {
-    addMenu: async(ctx, next) => {
+    async addMenu(ctx, next) {
         const { body } = ctx.request
         try {
             await Menu.remove()
@@ -18,7 +18,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findMenu: async(ctx, next) => {
+    async findMenu(ctx, next) {
 
         const { body } = ctx.request
         try {

@@ -2,8 +2,8 @@ const { User } = require("../db/mongoose/models"),
     bcrypt = require('bcrypt'),
     jwt = require('jsonwebtoken'), { secret } = require('../config/jwt');
 
-module.exports = {
-    addUser: async (ctx, next) => {
+module.exports = { 
+    async addUser(ctx, next) {
         const { body } = ctx.request;
         try {
             if (!body.userName || !body.pwd) { // 用户名，密码不能为空
@@ -29,7 +29,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    delUser: async (ctx, next) => {
+    async delUser (ctx, next) {
         const { body } = ctx.request;
         try {
             // console.log('delUser body: ', body)
@@ -44,7 +44,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    updateUser: async (ctx, next) => {
+    async updateUser (ctx, next) {
         const { body } = ctx.request;
         try {
             await User.updateOne(body.id, body.data, { runValidators: true })
@@ -58,7 +58,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findOneUser: async (ctx, next) => {
+    async findOneUser (ctx, next) {
         const { body } = ctx.request;
         try {
             // console.log('findOneUser body: ',body)
@@ -73,7 +73,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    findUser: async (ctx, next) => {
+    async findUser (ctx, next) {
         const { body } = ctx.request;
         try {
             const start = body.pageCurrent || 0, // 从第几条开始
@@ -90,7 +90,7 @@ module.exports = {
             ctx.body = { errNo: 1, message: err }
         }
     },
-    login: async (ctx) => {
+    async login (ctx) {
         const { body } = ctx.request
         try {
             const userData = await User.findOne({ userName: body.userName });

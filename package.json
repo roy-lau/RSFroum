@@ -17,7 +17,7 @@
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^4.0.0",
     "fundebug-javascript": "^0.3.5",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^10.4.1",
     "jsonwebtoken": "^8.2.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",

@@ -85,17 +85,17 @@ var userSchema = new Schema({
 - remove 已被删除
 
 ```js
-	UserSchema.post('validate', function(doc) { //1
+	UserSchema.post('validate', function(doc) { // 1
 	 console.log('%s 已验证（但尚未保存）2', doc._id);
 	});
-	UserSchema.post('save', function(doc) {//2
-	console.log('%s 已保存', doc._id);
+	UserSchema.post('save', function(doc) { // 2
+	  console.log('%s 已保存', doc._id);
 	});
-	UserSchema.post('init', function(doc) {//3
-	console.log('%s 已从DB初始化', doc._id);
+	UserSchema.post('init', function(doc) { // 3
+	  console.log('%s 已从DB初始化', doc._id);
 	});
 	UserSchema.post('remove', function(doc) {
-	console.log('%s 已被删除', doc._id);
+	  console.log('%s 已被删除', doc._id);
 	});
 ```
 

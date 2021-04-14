@@ -9,7 +9,8 @@ git clone git@github.com:roy-lau/RSFroum.git --depth=1 		# 下载此项目
 cd RSFroum 	# 进入项目录
 yarn 		# 安装依赖
 
-yarn test 	# 测试
-yarn app 	# 启动后台
-yarn serve 	# 启动前端（后台需启动）
+yarn start 	  # 启动项目（前后台同时启动）
+yarn server 	# 启动后台
+yarn server:test 	  # 测试
+yarn dev 	    # 启动前端（后台需启动）
 ```

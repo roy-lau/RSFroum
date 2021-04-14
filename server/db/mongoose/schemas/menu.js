@@ -7,7 +7,7 @@ var MenuSchema = new mongoose.Schema({
 })
 
 MenuSchema.statics = {
-    fetch: function(cb) {
+    fetch(cb) {
         return this
             .find({})
             .exec(cb)

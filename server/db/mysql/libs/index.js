@@ -1,5 +1,5 @@
 var mysql = require("mysql"),
-    moment = require('moment')().format('YYYY-MM-DD HH:mm:ss');
+    dayjs = require('dayjs')().format('YYYY-MM-DD HH:mm:ss');
 
 var pool = mysql.createPool({
     host: '139.199.99.154',
@@ -33,7 +33,7 @@ let num = 1,
                     reject(err)
                     console.log(`\n[mysql插入 失败] -  ${err.message} \n\n`);
                 } else {
-                    console.log(`[mysql_query execute : ${num++}] - ${moment}`);
+                    console.log(`[mysql_query execute : ${num++}] - ${dayjs}`);
                     // console.log('mysql_query ID:\n', result);
                     resolve(result)
                 }

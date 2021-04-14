@@ -3,7 +3,7 @@
 */
 
 const mongoose = require('mongoose'),
-moment = require('moment')().format('YYYY-MM-DD HH:mm:ss')
+    dayjs = require('dayjs')().format('YYYY-MM-DD HH:mm:ss')
 
 
 const PostSchema = new mongoose.Schema({
@@ -37,38 +37,51 @@ const PostSchema = new mongoose.Schema({
     },
     createAt: { // 发帖时间
         type: Date,
-        default: moment
+        default: dayjs
     },
     updateAt: { // 修改时间
         type: Date,
-        default: moment
+        default: dayjs
     }
 })
 // 保存前
-PostSchema.pre('save', function(next) {
+PostSchema.pre('save', function (next) {
     // 判断数据是否是新添加的
     if (this.isNew) {
         // 如果是新添加的就将创建的时间和更新的时间设置为当前时间
-        this.createAt = this.updateAt = moment
+        this.createAt = this.updateAt = dayjs
     } else {
         // 如果数据已经有了，就将更新时间设置为当前时间
-        this.updateAt = moment
+        this.updateAt = dayjs
     }
     next()
 })
 PostSchema.statics = {
-    // findByPages: 分页
-    findByPages: function(options, start, pageSize, cb) {
+    /**
+     * findByPages: 分页
+     * @param {Object} options 配置项
+     * @param {Number} start 开始条数
+     * @param {Number} pageSize 每页条数
+     * @param {Function} cb 回调函数
+     * @returns 
+     */
+    findByPages(options, start, pageSize, cb) {
         return this
             .find(options)
             .skip(start)
             .limit(pageSize)
             .sort('meta.updateAt')
             .exec(cb)
-        // 注意：start = (页数-1)*pageSize
+        // 注意：start = (页数-1) * pageSize
     },
-    // updateOne: 修改一条数据
-    updateOne: function(id, data, cb) {
+    /**
+     * updateOne: 修改一条数据
+     * @param {String} id 要更新的数据 id
+     * @param {Object} data 更新的数据
+     * @param {Function} cb 回调函数
+     * @returns 
+     */
+    updateOne(id, data, cb) {
         if (id === undefined && id === null && id === '') throw new Error(`ID can't be empty`)
         if (data === undefined && data === null && data === '') throw new Error(`data can't be empty`)
         return this

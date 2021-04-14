@@ -1,5 +1,5 @@
 var mysql = require("mysql"),
-    moment = require('moment')().format('YYYY-MM-DD HH:mm:ss');
+    dayjs = require('dayjs')().format('YYYY-MM-DD HH:mm:ss');
 
 var pool = mysql.createPool({
     host: '139.199.99.154',

@@ -11,8 +11,8 @@ const { secret } = require('../config/jwt');
 /**
  * 判断token是否可用
  */
-module.exports = function() {
-    return async function(ctx, next) {
+module.exports = function () {
+    return async function (ctx, next) {
         try {
             // 获取jwt
             const token = ctx.header.authorization;

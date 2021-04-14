@@ -3,7 +3,7 @@ const Koa = require('koa'),
     app = new Koa(),
     // 中间件
     bodyparser = require('koa-bodyparser'),
-    moment = require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+    dayjs = require('dayjs')().format('YYYY-MM-DD HH:mm:ss'),
     tokenError = require('./services/tokenError'),
     jwtKoa = require('koa-jwt'),
     { secret } = require('./config/jwt');
@@ -20,7 +20,7 @@ app
         const start = Date.now();
         await next();
         const ms = Date.now() - start;
-        console.log(`[${moment}] ${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms\n`);
+        console.log(`[${dayjs}] ${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms\n`);
     })
     // middlewares
     .use(bodyparser({
@@ -55,4 +55,4 @@ app
         console.error('【server error: 】', err, ctx)
     })
 
-    .listen(3001, () => { console.log('RSFroum 项目启动 3001...') });
+    .listen(3001, () => { console.info('RSFroum 项目启动 ---> http://localhost:3001') });

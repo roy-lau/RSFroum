@@ -1,7 +1,10 @@
-var mysql = require("mysql"),
+const mysql = require("mysql"),
     dayjs = require('dayjs')().format('YYYY-MM-DD HH:mm:ss');
-
-var pool = mysql.createPool({
+/**
+ * 创建连接池
+ * https://www.npmjs.com/package/mysql#pooling-connections
+ */
+const pool = mysql.createPool({
     host: '139.199.99.154',
     user: 'root',
     password: 'toor',
@@ -10,34 +13,31 @@ var pool = mysql.createPool({
     charset: 'utf8',
 });
 
-let query = function(sql, options, callback) {
-    pool.getConnection(function(err, conn) {
-        if (err) {
-            callback(err, null, null);
-        } else {
-            conn.query(sql, options, function(err, results, fields) {
-                //释放连接
-                conn.release();
-                //事件驱动回调
-                callback(err, results, fields);
-            });
-        }
-    });
-};
-
-let num = 1,
-    mysql_query = (sql, options) => {
-        return new Promise((resolve, reject) => {
-            query(sql, options, (err, result) => {
+/**
+ * MySQL 查询函数封装
+ * @param {String} sql  SQL 语句
+ * @param {any} values SQL 值或参数
+ * @returns 
+ */
+const query = (sql, values) => {
+    return new Promise((resolve, reject) => {
+        // 连接池连接数据库
+        pool.getConnection((err, con) => {
+            if (err) throw err; // 连接数据库失败
+            // 连接数据库成功，查询数据
+            con.query(sql, values, (err, rows, fields) => {
+                con.release();
                 if (err) {
-                    reject(err)
                     console.log(`\n[mysql插入 失败] -  ${err.message} \n\n`);
+                    reject(err)
                 } else {
                     console.log(`[mysql_query execute : ${num++}] - ${dayjs}`);
                     // console.log('mysql_query ID:\n', result);
-                    resolve(result)
+                    resolve(rows);
                 }
             })
         })
-    }
-module.exports = mysql_query;
+    })
+}
+
+module.exports = query;

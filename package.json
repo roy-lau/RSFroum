@@ -30,7 +30,7 @@
     "markdown-it": "^12.3.2",
     "mavon-editor": "^2.5.2",
     "mocha": "^5.0.5",
-    "mongoose": "^5.0.11",
+    "mongoose": "^5.13.15",
     "mysql": "^2.15.0",
     "nodemon": "^1.17.1",
     "nprogress": "^0.2.0",
